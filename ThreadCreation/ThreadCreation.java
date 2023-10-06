@@ -1,37 +1,23 @@
-/**
- * ThreadCreation
- */
+package ThreadCreation;
+
 import java.lang.Thread;
-import java.util.ArrayList;
-import java.util.List;
 
-// Thread Creation - Multi Executor
 public class ThreadCreation {
-
-    public static void main(String[] args) {
-        List<Runnable> listOfRunnables = new ArrayList<Runnable>() {
-            {
-                add(new Runnable() {
-                    public void run() {
-                        System.out.println("I am Thread 1");
-                    }
-                });
-                add(new Runnable() {
-                    public void run() {
-                        System.out.println("I am Thread 2");
-                    }
-                });
-                add(new Runnable() {
-                    public void run() {
-                        System.out.println("I am Thread 3");
-                    }
-                });
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("We are in thread: " + Thread.currentThread().getName());
+                System.out.println("We are in thread: " + Thread.currentThread().getPriority());
             }
-        };
+        });
+        thread.setName("New Worker Thread");
+        thread.setPriority(Thread.MAX_PRIORITY);
 
-        for(Runnable r : listOfRunnables) {
-            Thread newThread = new Thread(r);
-            newThread.start();
-        }
+        System.out.println("We are in thread: " + Thread.currentThread().getName() + " thread, before starting a new thread");
+        thread.start();
+        System.out.println("We are in thread: " + Thread.currentThread().getName() + " thread, after starting a new thread");
+
+        Thread.sleep(1000);
     }
 }
